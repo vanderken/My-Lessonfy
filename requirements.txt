@@ -1,0 +1,8 @@
+# Explained one by one in MD FILES/TECH STACK.MD
+django
+psycopg[binary]
+python-dotenv
+dj-database-url
+whitenoise
+gunicorn
+python-docx
