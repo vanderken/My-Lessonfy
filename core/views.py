@@ -1,4 +1,5 @@
 from django.contrib.auth import login
+from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.middleware.csrf import get_token
 from django.shortcuts import redirect, render
@@ -8,12 +9,9 @@ from django.utils.html import escape
 from .forms import RegisterForm
 
 
+@login_required
 def home(request):
     # TEMPORARY: replaced by the real dashboard in step 1.5
-    if not request.user.is_authenticated:
-        return HttpResponse(
-            "Lessonfy is running. Phase 0 setup complete. <a href='/login/'>Log in</a>"
-        )
     token = get_token(request)
     return HttpResponse(
         f"<p>Logged in as {escape(request.user.email)}</p>"
