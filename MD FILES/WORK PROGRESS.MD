@@ -50,9 +50,9 @@ Don't add anything else.
 
 ---
 
-## Phase 0: Setup (about 2 hours total, split it up)
+## Phase 0: Setup (about 2 hours total, split it up)[done]
 
-- [ ] **0.1 Create the Supabase project.** Save the database password in a password manager. *Done when:* project shows in the Supabase dashboard.
+- [] **0.1 Create the Supabase project.** Save the database password in a password manager. *Done when:* project shows in the Supabase dashboard.
 - [ ] **0.2 Get the connection string.** In Supabase, click **Connect** and copy the **session pooler** string. *Done when:* you have it saved somewhere private (not in chat, not in git).
 - [ ] **0.3 Make the project folder and virtual environment.** Install: `django "psycopg[binary]" python-dotenv dj-database-url whitenoise gunicorn python-docx`. *Done when:* `python -m django --version` prints a version.
 - [ ] **0.4 Create the Django project and app.** `django-admin startproject lessonfy .` then `python manage.py startapp core`. *Done when:* `python manage.py runserver` shows the Django welcome page.
@@ -63,7 +63,7 @@ Don't add anything else.
 
 ---
 
-## Phase 1: Accounts
+## Phase 1: Accounts[done]
 
 - [ ] **1.1 Custom user model.** Email as the login field, unique email. Set `AUTH_USER_MODEL`, then `makemigrations` and `migrate`. *Done when:* the user table appears in the Supabase Table Editor.
 - [ ] **1.2 Register page.** *Done when:* you can create an account and see the row in Supabase.
@@ -73,7 +73,7 @@ Don't add anything else.
 
 ---
 
-## Phase 2: Database tables (models only, no screens yet)
+## Phase 2: Database tables (models only, no screens yet)[in progress]
 
 - [ ] **2.1 `UserSettings` model.** One-to-one with user, with CHECK constraints for font size and line spacing ranges, theme, bionic, focus mode, sound. *Done when:* migration runs and the table exists in Supabase.
 - [ ] **2.2 `Collection` model.** Belongs to a user, has name and color. *Done when:* migration runs.
