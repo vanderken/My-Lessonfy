@@ -11,7 +11,7 @@ from .forms import RegisterForm
 
 @login_required
 def home(request):
-    # TEMPORARY: replaced by the real dashboard in step 1.5
+    # TEMPORARY: kept so the old route still works. Remove in a later step if unused.
     token = get_token(request)
     return HttpResponse(
         f"<p>Logged in as {escape(request.user.email)}</p>"
@@ -20,6 +20,11 @@ def home(request):
         '<button type="submit">Log out</button>'
         "</form>"
     )
+
+
+@login_required
+def dashboard(request):
+    return render(request, "core/dashboard.html")
 
 
 def register(request):

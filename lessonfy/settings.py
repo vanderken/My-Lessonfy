@@ -132,5 +132,5 @@ MAILERS = {
 }
 AUTH_USER_MODEL = "core.User"
 LOGIN_URL = "login"
-LOGIN_REDIRECT_URL = "home"       # changes to "dashboard" in step 1.5
+LOGIN_REDIRECT_URL = "dashboard"       # changes to "dashboard" in step 1.5
 LOGOUT_REDIRECT_URL = "login"
