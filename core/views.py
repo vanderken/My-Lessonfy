@@ -7,6 +7,7 @@ from django.urls import reverse
 from django.utils.html import escape
 
 from .forms import RegisterForm
+from .models import Lesson
 
 
 @login_required
@@ -24,7 +25,9 @@ def home(request):
 
 @login_required
 def dashboard(request):
-    return render(request, "core/dashboard.html")
+    # Only this user's lessons. Never query Lesson.objects.all() here.
+    lessons = Lesson.objects.filter(user=request.user)
+    return render(request, "core/dashboard.html", {"lessons": lessons})
 
 
 def register(request):

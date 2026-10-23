@@ -9,6 +9,17 @@
   <h1>Dashboard</h1>
   <p>Logged in as {{ user.email }}</p>
 
+  <h2>Your lessons</h2>
+  {% if lessons %}
+    <ul>
+      {% for lesson in lessons %}
+        <li>{{ lesson.title }}</li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>No lessons yet.</p>
+  {% endif %}
+
   <form method="post" action="{% url 'logout' %}">
     {% csrf_token %}
     <button type="submit">Log out</button>
