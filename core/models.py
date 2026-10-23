@@ -1,5 +1,7 @@
+from django.conf import settings
 from django.contrib.auth.models import AbstractUser, BaseUserManager
 from django.db import models
+from django.db.models import Q
 
 
 class UserManager(BaseUserManager):
@@ -28,3 +30,53 @@ class User(AbstractUser):
     REQUIRED_FIELDS = []
 
     objects = UserManager()
+
+
+class UserSettings(models.Model):
+    user = models.OneToOneField(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name="settings",
+    )
+    font_size = models.PositiveSmallIntegerField(default=18)
+    line_spacing = models.FloatField(default=1.5)
+    theme = models.CharField(
+        max_length=10,
+        choices=[("light", "Light"), ("dark", "Dark"), ("sepia", "Sepia")],
+        default="light",
+    )
+    bionic_reading = models.BooleanField(default=False)
+    focus_mode = models.BooleanField(default=False)
+    sound = models.CharField(
+        max_length=20,
+        choices=[
+            ("off", "Off"),
+            ("rain", "Rain"),
+            ("cafe", "Cafe"),
+            ("white_noise", "White noise"),
+        ],
+        default="off",
+    )
+
+    class Meta:
+        constraints = [
+            models.CheckConstraint(
+                condition=Q(font_size__gte=12, font_size__lte=32),
+                name="usersettings_font_size_range",
+            ),
+            models.CheckConstraint(
+                condition=Q(line_spacing__gte=1.0, line_spacing__lte=3.0),
+                name="usersettings_line_spacing_range",
+            ),
+            models.CheckConstraint(
+                condition=Q(theme__in=["light", "dark", "sepia"]),
+                name="usersettings_theme_valid",
+            ),
+            models.CheckConstraint(
+                condition=Q(sound__in=["off", "rain", "cafe", "white_noise"]),
+                name="usersettings_sound_valid",
+            ),
+        ]
+
+    def __str__(self):
+        return f"Settings for {self.user.email}"
