@@ -1,5 +1,6 @@
 from django.conf import settings
 from django.contrib.auth.models import AbstractUser, BaseUserManager
+from django.core.validators import RegexValidator
 from django.db import models
 from django.db.models import Q
 
@@ -80,3 +81,26 @@ class UserSettings(models.Model):
 
     def __str__(self):
         return f"Settings for {self.user.email}"
+
+
+hex_color_validator = RegexValidator(
+    regex=r"^#[0-9A-Fa-f]{6}$",
+    message="Color must be a hex code like #FF8800.",
+)
+
+
+class Collection(models.Model):
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name="collections",
+    )
+    name = models.CharField(max_length=100)
+    color = models.CharField(
+        max_length=7,
+        validators=[hex_color_validator],
+        default="#FFD166",
+    )
+
+    def __str__(self):
+        return f"{self.name} ({self.user.email})"
