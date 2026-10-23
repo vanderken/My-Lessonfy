@@ -113,6 +113,7 @@ class Lesson(models.Model):
         related_name="lessons",
     )
     title = models.CharField(max_length=200)
+    subtitle = models.CharField(max_length=200, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
